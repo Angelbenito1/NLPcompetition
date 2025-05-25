@@ -2,12 +2,28 @@ from transformers import RobertaTokenizerFast, RobertaForSequenceClassification
 import torch
 import os
 import pathlib
+import requests
+import zipfile
+import gdown
 
-MODEL_PATH = str(pathlib.Path(__file__).parent / "roberta_emotion")
+MODEL_DIR = pathlib.Path(__file__).parent / "roberta_emotion"
+MODEL_ZIP_PATH = MODEL_DIR.with_suffix(".zip")
 
+GOOGLE_DRIVE_ID = "1bvWyNMvnnZKH6oXpP6bwmZFjyIyzdww1"
 
-tokenizer = RobertaTokenizerFast.from_pretrained(MODEL_PATH)
-model = RobertaForSequenceClassification.from_pretrained(MODEL_PATH, torch_dtype=torch.float32, use_safetensors=True)
+def download_model_if_needed():
+    if not MODEL_DIR.exists():
+        print("🔽 Downloading model from Google Drive...")
+        url = f"https://drive.google.com/uc?id={GOOGLE_DRIVE_ID}"
+        gdown.download(url, str(MODEL_ZIP_PATH), quiet=False)
+        with zipfile.ZipFile(MODEL_ZIP_PATH, 'r') as zip_ref:
+            zip_ref.extractall(MODEL_DIR.parent)
+        MODEL_ZIP_PATH.unlink()
+
+download_model_if_needed()
+
+tokenizer = RobertaTokenizerFast.from_pretrained(str(MODEL_DIR))
+model = RobertaForSequenceClassification.from_pretrained(str(MODEL_DIR))
 model.eval()
 
 def predict_emotion(text):
