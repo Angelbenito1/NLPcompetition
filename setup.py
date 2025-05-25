@@ -21,7 +21,8 @@ setup(
         "requests>=2.25.0",
         "click>=8.0.0",
         "tqdm>=4.62.0",
-        "safetensors>=0.3.0"
+        "safetensors>=0.3.0",
+        "gdown>=5.2.0"
     ],
     entry_points={
         'console_scripts': [
