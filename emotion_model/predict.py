@@ -22,8 +22,8 @@ def download_model_if_needed():
 
 download_model_if_needed()
 
-tokenizer = RobertaTokenizerFast.from_pretrained(str(MODEL_DIR))
-model = RobertaForSequenceClassification.from_pretrained(str(MODEL_DIR))
+tokenizer = RobertaTokenizerFast.from_pretrained(MODEL_DIR.as_posix())
+model = RobertaForSequenceClassification.from_pretrained(MODEL_DIR.as_posix())
 model.eval()
 
 def predict_emotion(text):
