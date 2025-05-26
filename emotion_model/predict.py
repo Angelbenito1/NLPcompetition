@@ -9,7 +9,7 @@ import gdown
 MODEL_DIR = pathlib.Path(__file__).parent / "roberta_emotion"
 MODEL_ZIP_PATH = MODEL_DIR.with_suffix(".zip")
 
-GOOGLE_DRIVE_ID = "1YchBjm-BiT14LQZW67l9WD7x81-GKCDU"
+GOOGLE_DRIVE_ID = "1bvWyNMvnnZKH6oXpP6bwmZFjyIyzdww1"
 
 def download_model_if_needed():
     if not MODEL_DIR.exists():
@@ -22,8 +22,8 @@ def download_model_if_needed():
 
 download_model_if_needed()
 
-tokenizer = RobertaTokenizerFast.from_pretrained(MODEL_DIR.as_posix())
-model = RobertaForSequenceClassification.from_pretrained(MODEL_DIR.as_posix())
+tokenizer = RobertaTokenizerFast.from_pretrained(str(MODEL_DIR))
+model = RobertaForSequenceClassification.from_pretrained(str(MODEL_DIR))
 model.eval()
 
 def predict_emotion(text):
