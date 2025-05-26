@@ -9,7 +9,7 @@ import gdown
 MODEL_DIR = pathlib.Path(__file__).parent / "roberta_emotion"
 MODEL_ZIP_PATH = MODEL_DIR.with_suffix(".zip")
 
-GOOGLE_DRIVE_ID = "1bvWyNMvnnZKH6oXpP6bwmZFjyIyzdww1"
+GOOGLE_DRIVE_ID = "1f3uIX-67Osy7L1Xe2Zd98S8WsUPEXTso"
 
 def download_model_if_needed():
     if not MODEL_DIR.exists():
